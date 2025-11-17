@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+<meta charset="UTF-8">
+<title>Väestönsuojan tarkastuslomake</title>
+<link rel="stylesheet" href="Tyyli.css">
+</head>
+<body>
+
+<form id="vssForm">
+    <h2>1. Tarkastettavan kohteen tiedot</h2>
+    <input name="osoite" placeholder="Kiinteistön osoite" required>
+    <input name="tarkistuksen_aihe" placeholder="Tarkistuksen aihe" required>
+    <input name="tarkistuspaiva" type="date" required>
+    <input name="omistaja" placeholder="Kiinteistön omistaja" required>
+    <input name="rakennuslupavuosi" placeholder="Rakennuslupavuosi">
+    <input name="valmistumisvuosi" placeholder="Valmistumisvuosi">
+    <input name="isannoitsija" placeholder="Isännöitsijä">
+    <input name="suojaluokka" placeholder="Suojaluokka">
+    <input name="suojapaikat" placeholder="Suojapaikkojen määrä">
+    <input name="kiinteistotunnus" placeholder="Kiinteistötunnus">
+    <input name="pintaala" placeholder="Kokonaispinta-ala (m²)">
+    <input name="suoja_ala" placeholder="Varsinainen suoja-ala (m²)">
+    <input name="muut_tiedot" placeholder="Muita tietoja">
+
+    <h2>2. Tarkastajan tiedot</h2>
+    <input name="tarkistaja_nimi" placeholder="Tarkistajan nimi" required>
+    <input name="tarkistaja_sahkoposti" placeholder="Tarkistajan sähköposti" type="email" required>
+    <input name="tarkistaja_puhelin" placeholder="Tarkistajan puhelin">
+
+    <h2>3. Tarkastettavat kohteet</h2>
+    <div id="kohteetContainer"></div>
+
+    <h2>4. Huomiot</h2>
+    <textarea name="huomiot" id="huomiot" maxlength="500" placeholder="Kirjoita mahdolliset huomiosi (max 500 merkkiä)"></textarea>
+
+    <input type="hidden" name="lahetysaika" id="lahetysaika">
+
+    <button type="submit">Lähetä</button>
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script src="scripti.js"></script>
+
+</body>
+</html>

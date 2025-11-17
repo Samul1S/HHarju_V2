@@ -1,0 +1,91 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+h2 {
+    background-color: #00539C;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+input, select, textarea, button {
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+textarea {
+    min-height: 80px;
+    resize: vertical;
+    background-color: #f9f9f9;
+}
+
+button {
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+div.kohde {
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+details {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+summary {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.vastaukset button {
+    width: 48%;
+    margin-right: 2%;
+    color: white;
+}
+
+.vastaukset button:last-child {
+    margin-right: 0;
+}
+
+.vastaukset button.kunnossa {
+    background-color: #5cb85c;
+}
+
+.vastaukset button.puutteita {
+    background-color: #d9534f;
+}
+
+textarea#huomiot {
+    resize: vertical;
+    max-height: 150px;
+}
+
+/* Estä lisätietotekstialueiden koon muuttaminen */
+div.kohde details textarea,
+div.kohde .info-panel textarea,
+details textarea {
+    resize: none;          /* käyttäjä ei voi muuttaa kokoa */
+    min-height: 60px;
+    max-height: 140px;
+    overflow: auto;
+}
