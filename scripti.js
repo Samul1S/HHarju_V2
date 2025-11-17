@@ -56,49 +56,77 @@ kohteetLisatiedot.forEach(item => {
     const vastauksetDiv = document.createElement("div");
     vastauksetDiv.className = "vastaukset";
 
-    const kunnossaBtn = document.createElement("button");
-    kunnossaBtn.type = "button";
-    kunnossaBtn.className = "kunnossa";
-    kunnossaBtn.textContent = "Kunnossa";
+    // Luodaan kaksi radio-inputia ja niiden labelit, nimi on sama jotta FormData kerää valinnan
+    const name = "kohde_" + item.id;
 
-    const puutteitaBtn = document.createElement("button");
-    puutteitaBtn.type = "button";
-    puutteitaBtn.className = "puutteita";
-    puutteitaBtn.textContent = "Puutteita";
+    const kunnossaInput = document.createElement("input");
+    kunnossaInput.type = "radio";
+    kunnossaInput.name = name;
+    kunnossaInput.id = name + "_kunnossa";
+    kunnossaInput.value = "Kunnossa";
 
-    const input = document.createElement("input");
-    input.type = "hidden";
-    input.name = "kohde_" + item.id;
+    const kunnossaLabel = document.createElement("label");
+    kunnossaLabel.htmlFor = kunnossaInput.id;
+    kunnossaLabel.className = "radio-label kunnossa";
+    kunnossaLabel.textContent = "Kunnossa";
 
-    kunnossaBtn.addEventListener("click", () => {
-        input.value = "Kunnossa";
-        kunnossaBtn.style.opacity = "1";
-        puutteitaBtn.style.opacity = "0.5";
-    });
+    const puutteitaInput = document.createElement("input");
+    puutteitaInput.type = "radio";
+    puutteitaInput.name = name;
+    puutteitaInput.id = name + "_puutteita";
+    puutteitaInput.value = "Puutteita";
 
-    puutteitaBtn.addEventListener("click", () => {
-        input.value = "Puutteita";
-        puutteitaBtn.style.opacisty = "1";
-        kunnossaBtn.style.opacity = "0.5";
-    });
+    const puutteitaLabel = document.createElement("label");
+    puutteitaLabel.htmlFor = puutteitaInput.id;
+    puutteitaLabel.className = "radio-label puutteita";
+    puutteitaLabel.textContent = "Puutteita";
 
-    vastauksetDiv.appendChild(kunnossaBtn);
-    vastauksetDiv.appendChild(puutteitaBtn);
+    // Lisätään lomke-elementit vastaukset-diviin
+    vastauksetDiv.appendChild(kunnossaInput);
+    vastauksetDiv.appendChild(kunnossaLabel);
+    vastauksetDiv.appendChild(puutteitaInput);
+    vastauksetDiv.appendChild(puutteitaLabel);
     div.appendChild(vastauksetDiv);
-    div.appendChild(input);
 
-    const details = document.createElement("details");
-    const summary = document.createElement("summary");
-    summary.textContent = "Lisätiedot";
-    details.appendChild(summary);
+    // Lisätiedot: selkeä nappi joka avaa alaspäin lisätiedot
+    const detailsBtn = document.createElement("button");
+    detailsBtn.type = "button";
+    detailsBtn.className = "details-btn";
+    detailsBtn.textContent = "Lisätiedot";
+    detailsBtn.setAttribute("aria-expanded", "false");
+    const detailsId = name + "_details";
+    detailsBtn.setAttribute("aria-controls", detailsId);
 
-    const textarea = document.createElement("textarea");
-    textarea.readOnly = true;
-    textarea.textContent = item.lisatiedot;
-    textarea.style.resize = "none"; // estää koon muuttamisen sivulta
-    details.appendChild(textarea);
+    const detailsContent = document.createElement("div");
+    detailsContent.className = "details-content";
+    detailsContent.id = detailsId;
+    detailsContent.style.maxHeight = "0px";
+    detailsContent.style.overflow = "hidden";
+    detailsContent.style.transition = "max-height 220ms ease";
 
-    div.appendChild(details);
+    // Käytetään div:ia, joka näyttää inputilta mutta ei ole muokattavissa
+    const detailsField = document.createElement("div");
+    detailsField.className = "details-field";
+    detailsField.textContent = item.lisatiedot;
+    detailsField.setAttribute("aria-readonly", "true");
+    detailsField.tabIndex = 0; // mahdollistaa fokuksen ja tekstin valinnan näppäimillä/ruudulla
+
+    detailsContent.appendChild(detailsField);
+
+    detailsBtn.addEventListener("click", () => {
+        const expanded = detailsBtn.getAttribute("aria-expanded") === "true";
+        detailsBtn.setAttribute("aria-expanded", String(!expanded));
+        if (!expanded) {
+            // avaa: aseta maxHeight sisällön korkeuteen (animaatio)
+            detailsContent.style.maxHeight = detailsContent.scrollHeight + "px";
+        } else {
+            // sulje
+            detailsContent.style.maxHeight = "0px";
+        }
+    });
+
+    div.appendChild(detailsBtn);
+    div.appendChild(detailsContent);
     container.appendChild(div);
 });
 
