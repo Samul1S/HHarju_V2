@@ -92,7 +92,7 @@ kohteetLisatiedot.forEach(item => {
     const detailsBtn = document.createElement("button");
     detailsBtn.type = "button";
     detailsBtn.className = "details-btn";
-    detailsBtn.textContent = "Lisätiedot";
+    detailsBtn.textContent = "Lisätiedot tarkastettavasta kohdasta...";
     detailsBtn.setAttribute("aria-expanded", "false");
     const detailsId = name + "_details";
     detailsBtn.setAttribute("aria-controls", detailsId);

@@ -1,7 +1,7 @@
 /* Perusasetukset */
 body {
     font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background: #f4f6f8;
+    background: #adadad;
     margin: 0;
     min-height: 100vh;
     display: flex;
@@ -12,15 +12,20 @@ body {
 
 }
 
-
-
+/* yhtenäiset hover-muuttujat */
+:root {
+    --hover-box-shadow: 0 8px 20px rgba(2,6,23,0.08);
+    --hover-transform: translateY(-3px);
+    --hover-bg: #fafafa;
+    --hover-transition: box-shadow 150ms ease, transform 180ms cubic-bezier(.2,.8,.2,1), background 120ms ease;
+}
 
 /* Lomakekonteksti: keskitetty kortti */
 #vssForm {
     background: #ffffff;
     padding: 20px 80px;
     border-radius: 10px;
-    box-shadow: 0 6px 20px rgba(23, 33, 63, 0.08);
+    box-shadow: 0 6px 20px rgba(13, 50, 163, 0.08);
     width: 100%;
     max-width: 1250px;
     box-sizing: border-box;
@@ -77,20 +82,20 @@ body {
     border: 1px solid #d1d5db;
     border-radius: 6px;
     font-size: 1.20rem;
-    background: #fff;
+    background: #eeeeee;
     box-sizing: border-box;
     color: #111827;
 }
 
 /* Placeholder-harmaa */
 #vssForm ::placeholder {
-    color: #9ca3af;
+    color: #000000ad;
 }
 
 /* Kohdelohkot */
 .kohde {
     border: 1px solid #eef2f6;
-    background: #fbfdff;
+    background: #eeeeee;
     padding: 10px;
     border-radius: 8px;
     margin-bottom: 12px;
@@ -101,21 +106,36 @@ body {
     display: block;
     font-weight: 600;
     margin-bottom: 8px;
-    color: #0f172a;
+    color: rgba(0, 0, 0, 0.829);
 }
 
 .notice-box {
+    
     border: 1px solid #d1d5db;
-    background: #c4c4c4;
+    background: #eeeeee;
     border-radius: 8px;
     padding: 10px 15px;
     margin-top: 12px;
     margin-bottom: 12px;
     font-size: larger;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 30px;
+    color: rgba(0, 0, 0, 0.685);
     
+
+
+    transition: var(--hover-transition);
+    box-shadow: none;
+    transform: translateY(0);
+    position: relative;
 }
 
-
+.notice-box:hover {
+    box-shadow: var(--hover-box-shadow);
+    transform: var(--hover-transform);
+    background: var(--hover-bg);
+}
 
 /* Vastaukset (radio-tyyliset napit) */
 .vastaukset {
@@ -137,21 +157,34 @@ body {
 /* Labelit nappimaisiksi */
 .vastaukset .radio-label {
     display: inline-block;
-    padding: 8px 12px;
+    padding: 10px 14px;    /* hieman isompi napin koko */
     border-radius: 8px;
-    background: #f1f5f9;
+    background: #c9c9c9;
     border: 1px solid #e2e8f0;
     cursor: pointer;
     font-weight: 600;
     color: #0f172a;
-    transition: transform 80ms ease, box-shadow 120ms ease, background 120ms ease;
+    transition: var(--hover-transition);
     user-select: none;
+    font-size: 1.05rem;    /* hieman suurempi teksti */
 }
 
 /* Erivärit merkittynä */
 .vastaukset input[type="radio"]:checked + .radio-label {
-    box-shadow: 0 4px 12px rgba(2,6,23,0.06);
-    transform: translateY(-1px);
+    /* vain värimuutokset (ei transform/box-shadow) */
+    /* olemassa värit säilyvät, muutokset jätetään koskemattomiksi */
+}
+
+.vastaukset .radio-label,
+.vastaukset .radio-label:focus {
+    transition: var(--hover-transition);
+}
+.vastaukset .radio-label:hover,
+.vastaukset .radio-label:focus {
+    box-shadow: var(--hover-box-shadow);
+    transform: var(--hover-transform);
+    background: var(--hover-bg);
+    outline: none;
 }
 
 /* Kunnossa - vihreä sävy kun valittu */
@@ -170,24 +203,33 @@ body {
 
 /* Lisätiedot-nappi ja sisältö */
 .details-btn {
-    display: inline-flex;
+    display: inline-flex;  /* korjattu typo */
     align-items: center;
     gap: 8px;
     margin-top: 8px;
-    padding: 8px 12px;
+    padding: 10px 16px;    /* hieman isompi nappi */
     border-radius: 8px;
-    border: 1px solid #e2e8f0;
-    background: #eef6ff;
+    border: 1px solid #b8b8b8;
+    background: #c9c9c9;
     cursor: pointer;
     font-weight: 700;
-    color: #0f172a;
+    color: #000000ab;
+    transition: var(--hover-transition);
+    font-size: 1.03rem;    /* hieman suurempi teksti napissa */
+}
+.details-btn:hover,
+.details-btn:focus {
+    box-shadow: var(--hover-box-shadow);
+    transform: var(--hover-transform);
+    background: var(--hover-bg);
+    outline: none;
 }
 
 .details-btn::after {
     content: "▾";
     display: inline-block;
     transition: transform 160ms ease;
-    font-size: 0.9rem;
+    font-size: 1.05rem;    /* nuoli hieman isompi suhteessa nappiin */
     color: #1f2937;
 }
 
@@ -212,8 +254,8 @@ body {
     border-radius: 6px;
     background: #fff;
     color: #111827;
-    font-size: 0.95rem;
-    line-height: 1.35;
+    font-size: 1.25rem; /* hieman suurempi fontti lisätiedoille */
+    line-height: 1.45;  /* parempi luettavuus lyhyille kappaleille */
     white-space: pre-wrap; /* säilyttää rivinvaihdot */
     overflow: auto; /* jos sisältö pitkähköä, näyttää vierityksen */
     cursor: text; /* näyttää kuin teksti-input */
@@ -240,6 +282,15 @@ body {
     cursor: pointer;
     box-shadow: 0 4px 12px rgba(2, 6, 23, 0.08);
     margin-top: 50px;
+    margin-bottom: 40px;
+    transition: var(--hover-transition);
+}
+#vssForm button[type="submit"]:hover,
+#vssForm button[type="submit"]:focus {
+    box-shadow: var(--hover-box-shadow);
+    transform: var(--hover-transform);
+    background: #b80000; /* hieman tummentunut punainen säilyy */
+    outline: none;
 }
 
 /* Pieni näyttö ja esteettisyys */
