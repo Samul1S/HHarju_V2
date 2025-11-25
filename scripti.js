@@ -129,9 +129,28 @@ kohteetLisatiedot.forEach(item => {
     div.appendChild(detailsContent);
     container.appendChild(div);
 });
-
+ 
 document.getElementById("vssForm").addEventListener("submit", function(e) {
     e.preventDefault();
+    // Uusi: varmista, että jokaisesta kohteesta on valittu radio
+    for (const item of kohteetLisatiedot) {
+        const name = "kohde_" + item.id;
+        const checked = document.querySelector(`input[name="${name}"]:checked`);
+        if (!checked) {
+            // Korostus: vieritä kohtaan ja fokusoidaan ensimmäinen radio
+            const firstInput = document.querySelector(`input[name="${name}"]`);
+            if (firstInput) {
+                const kohdeEl = firstInput.closest('.kohde') || firstInput;
+                if (kohdeEl && typeof kohdeEl.scrollIntoView === 'function') {
+                    kohdeEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                firstInput.focus();
+            }
+            alert(`Valitse joko "Kunnossa" tai "Puutteita" kohdalle ${item.id}`);
+            return; // estetään lähetys kunnes valinnat kunnossa
+        }
+    }
+
     if(!confirm("Haluatko varmasti lähettää lomakkeen?")) return;
 
     document.getElementById("lahetysaika").value = new Date().toLocaleString("fi-FI");
@@ -141,6 +160,8 @@ document.getElementById("vssForm").addEventListener("submit", function(e) {
     formData.forEach((value, key) => {
         params[key] = value;
     });
+
+    
 
     emailjs.send("service_f872iue", "template_q2h313l", params)
         .then(() => alert("Lomake lähetetty onnistuneesti!"))

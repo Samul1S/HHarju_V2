@@ -99,6 +99,8 @@ body {
     padding: 10px;
     border-radius: 8px;
     margin-bottom: 12px;
+    font-size: 22px;
+    font-weight: bold; 
 }
 
 /* Kohdeotsikko */
@@ -109,7 +111,7 @@ body {
     color: rgba(0, 0, 0, 0.829);
 }
 
-.notice-box {
+.tiiveyskoe-box {
     
     border: 1px solid #d1d5db;
     background: #eeeeee;
@@ -122,6 +124,7 @@ body {
     margin-top: 50px;
     margin-bottom: 30px;
     color: rgba(0, 0, 0, 0.685);
+    font-size: 23px;
     
 
 
@@ -131,10 +134,14 @@ body {
     position: relative;
 }
 
-.notice-box:hover {
+.tiiveyskoe-box:hover {
     box-shadow: var(--hover-box-shadow);
     transform: var(--hover-transform);
     background: var(--hover-bg);
+}
+
+.tiiveyskoe {
+    font-size: 22px;
 }
 
 /* Vastaukset (radio-tyyliset napit) */
@@ -306,6 +313,41 @@ body {
     }
 }
 
+.footer {
+  display: flex;
+  justify-content: space-between; /* spread columns evenly */
+  align-items: flex-start;
+  border-top: 1px solid #000; /* top line */
+  padding: 8px 0;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  margin-top: 100px;
+}
 
+.footer-section {
+  flex: 1; /* make each section share space */
+  padding: 0 10px;
+}
+
+.footer-section.left {
+  text-align: left;
+}
+
+.footer-section.center {
+  text-align: center;
+}
+
+.footer-section.right {
+  text-align: right;
+}
+
+.footer a {
+  color: #6b4f00; /* optional link color */
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
 
 

@@ -19,38 +19,55 @@
     <h2 class="otsikko">Tarkastettavan kohteen tiedot</h2>
     <input name="osoite" placeholder="Kiinteistön osoite" required>
     <input name="tarkistuksen_aihe" placeholder="Tarkistuksen aihe" required>
-    <input name="tarkistuspaiva" type="date" required>
+    <input name="tarkistuspaiva" placeholder="Tarkistus päivämäärä" required>
     <input name="omistaja" placeholder="Kiinteistön omistaja" required>
-    <input name="rakennuslupavuosi" placeholder="Rakennuslupavuosi">
-    <input name="valmistumisvuosi" placeholder="Valmistumisvuosi">
-    <input name="isannoitsija" placeholder="Isännöitsijä">
-    <input name="suojaluokka" placeholder="Suojaluokka">
-    <input name="suojapaikat" placeholder="Suojapaikkojen määrä">
-    <input name="kiinteistotunnus" placeholder="Kiinteistötunnus">
-    <input name="pintaala" placeholder="Kokonaispinta-ala (m²)">
-    <input name="suoja_ala" placeholder="Varsinainen suoja-ala (m²)">
+    <input name="rakennuslupavuosi" placeholder="Rakennuslupavuosi"required>
+    <input name="valmistumisvuosi" placeholder="Valmistumisvuosi"required>
+    <input name="isannoitsija" placeholder="Isännöitsijä"required>
+    <input name="suojaluokka" placeholder="Suojaluokka"required>
+    <input name="suojapaikat" placeholder="Suojapaikkojen määrä"required>
+    <input name="kiinteistotunnus" placeholder="Kiinteistötunnus"required>
+    <input name="pintaala" placeholder="Kokonaispinta-ala (m²)"required>
+    <input name="suoja_ala" placeholder="Varsinainen suoja-ala (m²)"required>
     <input name="muut_tiedot" placeholder="Muita tietoja">
-
-    
 
     <h2>Tarkastajan tiedot</h2>
     <input name="tarkistaja_nimi" placeholder="Tarkistajan nimi" required>
     <input name="tarkistaja_sahkoposti" placeholder="Tarkistajan sähköposti" type="email" required>
-    <input name="tarkistaja_puhelin" placeholder="Tarkistajan puhelin">
+    <input name="tarkistaja_puhelin" placeholder="Tarkistajan puhelin"required>
 
-    <details class="notice-box">
-        <summary>Huomio tiiveyskokeesta! - klikkaa avataksesi</summary>
-        <p>Muistathan suorittaa tiiveyskokeen ennen lomakkeen lähettämistä. Tiiveyskokeen tulokset tulee liittää mukaan tarkastusraporttiin.</p>
+    <details class="tiiveyskoe-box">
+        <summary><strong>Huomio tiiveyskokeesta! - Klikkaa avataksesi</strong></summary>
+        <p class="tiiveyskoe">1. Sulje suojan paineovi ja hätäpoistumisluukku.<br>2. Sulje viemärinsulkuventtiili kääntämällä käsipyörä varoen loppuun asti.<br>3. Sulje seinien ylipaineventtiilit kiertämällä ne kääntövivuistaan kiinni<br>. 4.Tarkasta ilmanvaihdon sulkulaippojen kireys.<br>5. Sulje ilmanvaihtolaitteen paineventtiili.<br>6. Nollaa ylipainemittari mittarin kyljessä olevan ohjeen mukaisesti.<br>7. Käynnistä ilmanvaihtolaite.<br>8. Avaa paineventtiiliä kunnes ylipainemittari näyttää 300 Pascalia.<br>9. Sulje paineventtiili ja pysäytä ilmanvaihtolaite<br>10. Seuraa ylipainemittarista paineen laskua<br><br>Ylipaineen laskun 200 Pascalista 50 Pascaliin tulee kestää vähintään 20 sekuntia.<br>Tämän ajan ylittyessä suoja on tiivis!</p>
     </details>
 
     <h2>Tarkastettavat kohteet</h2>
-    <div id="kohteetContainer"></div>
+    <div class="kohteetcontainer" id="kohteetContainer"></div>
 
     <h2>Huomiot</h2>
     <input name="huomiot" id="huomiot" maxlength="500" placeholder="Kirjoita mahdolliset huomiosi (max 500 merkkiä)">
     <input type="hidden" name="lahetysaika" id="lahetysaika">
 
     <button type="submit">Lähetä</button>
+
+        <footer>
+      <div class="footer">
+        <div class="footer-section left">
+          <p>Helkaharju Oy<br>
+          <a href="https://www.helkaharju.fi/">https://www.helkaharju.fi/</a></p>
+        </div>
+
+        <div class="footer-section center">
+          <p>Råhagavägen 7 B<br>
+          65450 Sulva</p>
+        </div>
+
+        <div class="footer-section right">
+          <p>Y-tunnus: 2669145-2<br>
+          Puh: +358 50 379 6100</p>
+        </div>
+      </div>
+    </footer>
 </form>
 
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
