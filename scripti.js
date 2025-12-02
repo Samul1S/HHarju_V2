@@ -119,7 +119,8 @@ kohteetLisatiedot.forEach(item => {
     userDetails.name = name + "_selite"; // tallentuu FormData:an kun enabled
     userDetails.id = name + "_selite";
     userDetails.rows = 3;
-    userDetails.placeholder = "Tarkennus puutteista...";
+    userDetails.maxLength = 500;
+    userDetails.placeholder = "Tarkennus puutteista (Max 500 merkkiä) ...";
     // Piilotetaan oletuksena, näytetään vain kun käyttäjä valitsee 'Puutteita'
     userDetails.style.display = "none";
     userDetails.style.marginTop = "16px";
@@ -217,12 +218,13 @@ document.getElementById("vssForm").addEventListener("submit", function(e) {
     document.getElementById("lahetysaika").value = new Date().toLocaleString("fi-FI");
 
     const formData = new FormData(this);
-    const params = {};
-    formData.forEach((value, key) => {
-        params[key] = value;
-    });
+const params = {};
 
-    
+formData.forEach((value, key) => {
+    // Tyhjät muutetaan viiva-merkiksi järkevää näkyvyyttä varten
+    params[key] = value && value.trim() !== "" ? value : "---";
+});
+
 
     emailjs.send("service_f872iue", "template_q2h313l", params)
         .then(() => alert("Lomake lähetetty onnistuneesti!"))
