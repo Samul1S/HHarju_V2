@@ -100,7 +100,6 @@ body {
     border-radius: 8px;
     margin-bottom: 12px;
     font-size: 22px;
-    font-weight: bold; 
 }
 
 /* Kohdeotsikko */
@@ -176,11 +175,7 @@ body {
     font-size: 1.05rem;    /* hieman suurempi teksti */
 }
 
-/* Erivärit merkittynä */
-.vastaukset input[type="radio"]:checked + .radio-label {
-    /* vain värimuutokset (ei transform/box-shadow) */
-    /* olemassa värit säilyvät, muutokset jätetään koskemattomiksi */
-}
+
 
 .vastaukset .radio-label,
 .vastaukset .radio-label:focus {
@@ -223,6 +218,7 @@ body {
     color: #000000ab;
     transition: var(--hover-transition);
     font-size: 1.03rem;    /* hieman suurempi teksti napissa */
+    margin-bottom: 10px;
 }
 .details-btn:hover,
 .details-btn:focus {
@@ -245,12 +241,7 @@ body {
 }
 
 /* Piilotettu sisältö joka aukeaa alas (max-height-animaatio) */
-.details-content {
-    margin-top: 8px;
-    overflow: hidden;
-    transition: max-height 220ms ease;
-    /* max-height säädetään JS:ssä; alkuarvo 0 pidetään inline-tyylinä */
-}
+
 
 /* Sisällön kenttä joka näyttää inputilta mutta ei ole muokattavissa */
 .details-content .details-field {
@@ -268,12 +259,20 @@ body {
     cursor: text; /* näyttää kuin teksti-input */
     user-select: text; /* sallii tekstin valinnan */
     outline: none;
+
 }
+
+
+
+
+
+
 
 /* Visuaalinen fokus-tila, ei muokattavissa mutta näkyy fokusissa */
 .details-content .details-field:focus {
     box-shadow: 0 0 0 3px rgba(0,102,204,0.12);
     border-color: #66aef8;
+    
 }
 
 /* Lähetä-painike keskelle */

@@ -113,6 +113,24 @@ kohteetLisatiedot.forEach(item => {
 
     detailsContent.appendChild(detailsField);
 
+    // Käyttäjän antama lisätieto (tekstialue). Oletuksena pois käytöstä — aktivoidaan vain kun valittu "Puutteita"
+    const userDetails = document.createElement("input");
+    userDetails.className = "user-details";
+    userDetails.name = name + "_selite"; // tallentuu FormData:an kun enabled
+    userDetails.id = name + "_selite";
+    userDetails.rows = 3;
+    userDetails.placeholder = "Tarkennus puutteista...";
+    // Piilotetaan oletuksena, näytetään vain kun käyttäjä valitsee 'Puutteita'
+    userDetails.style.display = "none";
+    userDetails.style.marginTop = "16px";
+    userDetails.style.overflow = "hidden";
+    userDetails.style.background = "#fff";
+    userDetails.disabled = true; // estetään lähetys/valinta kun ei tarpeen
+    userDetails.setAttribute("aria-hidden", "true");
+
+    // Näytä tekstialue radiojen alapuolella
+    
+
     detailsBtn.addEventListener("click", () => {
         const expanded = detailsBtn.getAttribute("aria-expanded") === "true";
         detailsBtn.setAttribute("aria-expanded", String(!expanded));
@@ -127,15 +145,39 @@ kohteetLisatiedot.forEach(item => {
 
     div.appendChild(detailsBtn);
     div.appendChild(detailsContent);
+    div.appendChild(userDetails);
+    // Kuuntele radio-valintoja, jotta käyttäjän lisäkenttä aktivoituu oikeassa tilanteessa
+    kunnossaInput.addEventListener('change', () => {
+        if (kunnossaInput.checked) {
+            userDetails.disabled = true;
+            userDetails.required = false;
+            userDetails.value = "";
+            userDetails.setAttribute("aria-hidden", "true");
+            userDetails.style.display = "none";
+            userDetails.removeAttribute('aria-required');
+        }
+    });
+
+    puutteitaInput.addEventListener('change', () => {
+        if (puutteitaInput.checked) {
+            userDetails.disabled = false;
+            userDetails.required = true;
+            userDetails.focus();
+            userDetails.setAttribute("aria-hidden", "false");
+            userDetails.style.display = "block";
+            userDetails.setAttribute('aria-required', 'true');
+        }
+    });
     container.appendChild(div);
 });
  
 document.getElementById("vssForm").addEventListener("submit", function(e) {
     e.preventDefault();
     // Uusi: varmista, että jokaisesta kohteesta on valittu radio
-    for (const item of kohteetLisatiedot) {
+        for (const item of kohteetLisatiedot) {
         const name = "kohde_" + item.id;
         const checked = document.querySelector(`input[name="${name}"]:checked`);
+        
         if (!checked) {
             // Korostus: vieritä kohtaan ja fokusoidaan ensimmäinen radio
             const firstInput = document.querySelector(`input[name="${name}"]`);
@@ -149,6 +191,25 @@ document.getElementById("vssForm").addEventListener("submit", function(e) {
             alert(`Valitse joko "Kunnossa" tai "Puutteita" kohdalle ${item.id}`);
             return; // estetään lähetys kunnes valinnat kunnossa
         }
+
+        // Jos valittu 'Puutteita', varmista että käyttäjä on kirjoittanut lisätiedot
+        const selected = checked && checked.value;
+        if (selected === 'Puutteita') {
+            const selite = document.querySelector(`#${name}_selite`);
+            if (!selite || !selite.value.trim()) {
+                // Korostus: vieritä kohtaan ja fokusoidaan lisäkenttään
+                const firstInput = document.querySelector(`input[name="${name}"]`);
+                if (firstInput) {
+                    const kohdeEl = firstInput.closest('.kohde') || firstInput;
+                    if (kohdeEl && typeof kohdeEl.scrollIntoView === 'function') {
+                        kohdeEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                    if (selite) selite.focus();
+                }
+                    alert(`Kirjoita lisätiedot kohdalle ${item.id} kun valittu 'Puutteita'`);
+                    return; // estetään lähetys kunnes valinnat kunnossa
+                }
+            }
     }
 
     if(!confirm("Haluatko varmasti lähettää lomakkeen?")) return;
