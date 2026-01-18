@@ -8,9 +8,77 @@
 </head>
 <body>
 
+<!-- Tietosuojaselosteen modal - näytetään ennen lomaketta -->
+<div id="privacyModal" class="privacy-modal show">
+    <div class="privacy-modal-content">
+        <h2>Tietosuojaseloste</h2>
+        <div class="privacy-modal-text">
+            <h3>1. Rekisterinpitäjä</h3>
+            <p>
+                <strong>Helkaharju Oy</strong><br>
+                Y-tunnus: 2669145-2<br>
+                Råhagavägen 7 B, 65450 Sulva<br>
+                Sähköposti: jari@helkaharju.fi<br>
+                Puhelin: +358 50 379 6100
+            </p>
 
+            <h3>2. Henkilötietojen käsittelyn tarkoitus</h3>
+            <p>Henkilötietoja käsitellään väestönsuojan tarkastuslomakkeen avulla tehtävän tarkastuksen dokumentointiin, raportointiin sekä tarvittaessa yhteydenpitoon tarkastajaan ja kiinteistön edustajiin.</p>
+            <p><em>Tietoja ei käytetä suoramarkkinointiin.</em></p>
 
-<form id="vssForm">
+            <h3>3. Käsiteltävät henkilötiedot</h3>
+            <p>Lomakkeen kautta voidaan käsitellä seuraavia tietoja:</p>
+            <ul>
+                <li>Tarkastajan nimi</li>
+                <li>Tarkastajan sähköpostiosoite</li>
+                <li>Kiinteistön tiedot (osoite, omistaja, isännöitsijä, kiinteistötunnus)</li>
+                <li>Rakennusta ja väestönsuojaa koskevat tekniset tiedot</li>
+                <li>Tarkastuksen tulokset, huomiot ja lisäselvitykset</li>
+                <li>Lomakkeen lähetysaika</li>
+            </ul>
+
+            <h3>4. Käsittelyn oikeusperuste</h3>
+            <p>Henkilötietojen käsittelyn oikeusperuste on rekisterinpitäjän oikeutettu etu (GDPR 6.1.f), joka perustuu lakisääteiseen ja sopimukselliseen tarpeeseen dokumentoida väestönsuojan tarkastuksia.</p>
+            <p>Lisäksi lomakkeen lähettäminen edellyttää tietosuojaselosteen hyväksymistä.</p>
+
+            <h3>5. Tietojen säilytysaika</h3>
+            <p>Tietoja säilytetään vain niin kauan kuin se on tarpeen:</p>
+            <ul>
+                <li>tarkastusten dokumentointiin</li>
+                <li>viranomais- ja lainsäädäntövaatimusten täyttämiseen</li>
+                <li>mahdollisten jatkotoimenpiteiden käsittelyyn</li>
+            </ul>
+            <p>Tämän jälkeen tiedot poistetaan tai anonymisoidaan.</p>
+
+            <h3>6. Tietojen luovuttaminen ja siirrot</h3>
+            <p>Tietoja ei luovuteta kolmansille osapuolille.</p>
+            <p>Lomakkeen tiedot välitetään sähköpostitse rekisterinpitäjälle teknisen sähköpostinvälityspalvelun (EmailJS) avulla. Tietoja ei siirretä EU:n tai ETA:n ulkopuolelle rekisterinpitäjän toimesta.</p>
+
+            <h3>7. Rekisteröidyn oikeudet</h3>
+            <p>Rekisteröidyllä on seuraavat oikeudet:</p>
+            <ul>
+                <li>oikeus tarkastaa itseään koskevat tiedot</li>
+                <li>oikeus pyytää virheellisten tietojen oikaisua</li>
+                <li>oikeus pyytää tietojen poistamista soveltuvan lainsäädännön puitteissa</li>
+                <li>oikeus vastustaa tietojen käsittelyä</li>
+                <li>oikeus tehdä valitus valvontaviranomaiselle</li>
+            </ul>
+            <p><strong>Valvontaviranomainen Suomessa:</strong><br>Tietosuojavaltuutetun toimisto</p>
+
+            <h3>8. Tietojen lähde</h3>
+            <p>Henkilötiedot saadaan rekisteröidyltä itseltään lomakkeen täyttämisen yhteydessä.</p>
+
+            <h3>9. Tietojen antamisen pakollisuus</h3>
+            <p>Tietojen antaminen on välttämätöntä tarkastuslomakkeen käsittelemiseksi. Ilman tietosuojaselosteen hyväksymistä lomaketta ei voi lähettää.</p>
+        </div>
+        <div class="privacy-modal-actions">
+            <button id="acceptPrivacy" type="button" class="privacy-btn accept">Hyväksy ja jatka</button>
+            <button id="declinePrivacy" type="button" class="privacy-btn decline">Peruuta</button>
+        </div>
+    </div>
+</div>
+
+<form id="vssForm" class="form-hidden">
     <header class="header">
     <img src="helkaharju_LOGO.png" alt="Helka Harju Logo" class="logo">
     <p class="jari">Ota yhteyttä:  <br>jari@helkaharju.fi</p>
@@ -47,6 +115,7 @@
     <h2>Muut Huomiot</h2>
     <input name="huomiot" id="huomiot" maxlength="500" placeholder="Kirjoita mahdolliset huomiosi (max 500 merkkiä)">
     <input type="hidden" name="lahetysaika" id="lahetysaika">
+    <input type="hidden" name="privacyAccepted" id="privacyAccepted" value="false">
 
     <button type="submit">Lähetä</button>
 

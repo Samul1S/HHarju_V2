@@ -1,5 +1,23 @@
 emailjs.init("h-fkRW088FoAvNTls");
 
+// Tietosuojaselosteen hallinta - näytetään ensin
+const privacyModal = document.getElementById("privacyModal");
+const acceptPrivacyBtn = document.getElementById("acceptPrivacy");
+const declinePrivacyBtn = document.getElementById("declinePrivacy");
+const privacyAcceptedInput = document.getElementById("privacyAccepted");
+const vssForm = document.getElementById("vssForm");
+
+acceptPrivacyBtn.addEventListener("click", () => {
+    privacyAcceptedInput.value = "true";
+    privacyModal.classList.remove("show");
+    vssForm.classList.remove("form-hidden");
+});
+
+declinePrivacyBtn.addEventListener("click", () => {
+    alert("Et voi käyttää lomaketta ilman tietosuojaselosteen hyväksymistä.");
+    privacyModal.classList.add("show");
+});
+
 const kohteetLisatiedot = [
   {id:"1", nimi:"Suojaantulotie", lisatiedot:"Suojaantulotiellä ei saa olla ylimääräistä palokuormaa, joka vaikeuttaa poistumista esimerkiksi tulipalotilanteessa. Rappukäytävässä saa olla vain kynnysmatto; ei tuoleja, lastenvaunuja tai muuta tavaraa."},
   {id:"2", nimi:"VSS-merkit ja viitoitus", lisatiedot:"Suojaan vievä tie on merkitty. Jos merkkitarroja ei ole paikoillaan, riittää että ne löytyvät varustelaatikosta ja voidaan asentaa käyttöönoton yhteydessä."},
@@ -174,6 +192,14 @@ kohteetLisatiedot.forEach(item => {
  
 document.getElementById("vssForm").addEventListener("submit", function(e) {
     e.preventDefault();
+    
+    // Varmista tietosuojaselosteen hyväksyntä
+    if (privacyAcceptedInput.value !== "true") {
+        alert("Sinun on hyväksyttävä tietosuojaseloste ennen lomakkeen lähettämistä.");
+        privacyModal.classList.add("show");
+        return;
+    }
+
     // Uusi: varmista, että jokaisesta kohteesta on valittu radio
         for (const item of kohteetLisatiedot) {
         const name = "kohde_" + item.id;
@@ -218,12 +244,12 @@ document.getElementById("vssForm").addEventListener("submit", function(e) {
     document.getElementById("lahetysaika").value = new Date().toLocaleString("fi-FI");
 
     const formData = new FormData(this);
-const params = {};
+    const params = {};
 
-formData.forEach((value, key) => {
-    // Tyhjät muutetaan viiva-merkiksi järkevää näkyvyyttä varten
-    params[key] = value && value.trim() !== "" ? value : "---";
-});
+    formData.forEach((value, key) => {
+        // Tyhjät muutetaan viiva-merkiksi järkevää näkyvyyttä varten
+        params[key] = value && value.trim() !== "" ? value : "---";
+    });
 
 
     emailjs.send("service_f872iue", "template_q2h313l", params)
